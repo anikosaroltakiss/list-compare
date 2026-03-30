@@ -1,0 +1,10 @@
+{
+    "name": "sarolta/list-compare",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ListCompare\\": "src/"
+        }
+    },
+    "require": {}
+}

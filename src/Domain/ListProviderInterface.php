@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace ListCompare\Domain;
 
-interface ListProviderInterface {
+interface ListProviderInterface
+{
   /**
-    * @return string[]
-  */
+   * @return string[]
+   */
   public function getItems(): array;
 }

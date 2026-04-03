@@ -2,15 +2,12 @@
 
 namespace ListCompare\Domain;
 
-class ListComparator {
-
+class ListComparator
+{
     /**
-     *
-     * @param array $listA
-     * @param array $listB
-     * 
+     * @param string[] $listA
+     * @param string[] $listB
      * @return ComparisonResult
-     * 
      */
     public function compare(array $listA, array $listB): ComparisonResult
     {
@@ -23,12 +20,9 @@ class ListComparator {
     }
 
     /**
-     *
-     * @param array $listA
-     * @param array $listB
-     * 
-     * @return array
-     * 
+     * @param string[] $listA
+     * @param string[] $listB
+     * @return string[]
      */
     private function getOnlyA(array $listA, array $listB): array
     {
@@ -36,12 +30,9 @@ class ListComparator {
     }
 
     /**
-     *
-     * @param array $listA
-     * @param array $listB
-     * 
-     * @return array
-     * 
+     * @param string[] $listA
+     * @param string[] $listB
+     * @return string[]
      */
     private function getOnlyB(array $listA, array $listB): array
     {
@@ -49,12 +40,9 @@ class ListComparator {
     }
 
     /**
-     *
-     * @param array $listA
-     * @param array $listB
-     * 
-     * @return array
-     * 
+     * @param string[] $listA
+     * @param string[] $listB
+     * @return string[]
      */
     private function getIntersection(array $listA, array $listB): array
     {
@@ -62,12 +50,9 @@ class ListComparator {
     }
 
     /**
-     *
-     * @param array $listA
-     * @param array $listB
-     * 
-     * @return array
-     * 
+     * @param string[] $listA
+     * @param string[] $listB
+     * @return string[]
      */
     private function getUnion(array $listA, array $listB): array
     {

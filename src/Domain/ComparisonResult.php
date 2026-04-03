@@ -1,20 +1,20 @@
-<?php 
+<?php
 
 namespace ListCompare\Domain;
 
-readonly class ComparisonResult {
+readonly class ComparisonResult
+{
 
-  public function __construct (
-    /** @var string[] */
+  /**
+   * @param string[] $onlyA
+   * @param string[] $onlyB
+   * @param string[] $intersection
+   * @param string[] $union
+   */
+  public function __construct(
     public array $onlyA,
-    /** @var string[] */
     public array $onlyB,
-    /** @var string[] */
     public array $intersection,
-    /** @var string[] */
     public array $union
-  )
-  {
-    
-  }
+  ) {}
 }

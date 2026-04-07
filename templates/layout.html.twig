@@ -1,1 +1,35 @@
-<div>Hello ListCompare</div>
+<!DOCTYPE html>
+<html lang="hu">
+	<head>
+		<meta charset="UTF-8">
+		<title>ListCompare</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+	</head>
+	<body class="bg-gray-100 p-8">
+		<main class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+			<h1 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">ListCompare</h1>
+
+			<div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+				<h2 class="text-xl font-semibold mb-4 text-indigo-700">Listák összehasonlítása</h2>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div class="flex flex-col">
+						<label for="list-a" class="mb-2 font-medium text-gray-700">"A" Lista</label>
+						<textarea id="list-a" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
+					</div>
+
+                    <div class="flex flex-col">
+                        <label for="list-b" class="mb-2 font-medium text-gray-700">"B" Lista</label>
+                        <textarea id="list-b" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
+                    </div>
+				</div>
+
+				<button class="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-bold hover:bg-indigo-700 transition">
+					Összehasonlítás
+				</button>
+			</div>
+
+		</main>
+	</body>
+</html>

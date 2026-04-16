@@ -16,17 +16,17 @@
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div class="flex flex-col">
 						<label for="list-a" class="mb-2 font-medium text-gray-700">"A" Lista</label>
-						<textarea id="list-a" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
+						<textarea id="list-a" name="list-a" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
 					</div>
 
 					<div class="flex flex-col">
 						<label for="list-b" class="mb-2 font-medium text-gray-700">"B" Lista</label>
-						<textarea id="list-b" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
+						<textarea id="list-b" name="list-b" class="border rounded-md p-3 focus:ring-2 focus:ring-indigo-500 outline-none h-64"></textarea>
 					</div>
 				</div>
 
 				{{ include('compareButton.html.twig', {
-    				'type_id': 'textarea',
+    				'type_id': SourceType.TEXTAREA,
     				'include_selectors': '#list-a, #list-b'
 				}) }}
 			</div>

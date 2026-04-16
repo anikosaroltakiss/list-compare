@@ -2,6 +2,7 @@
 
 namespace ListCompare\Infrastructure\Http;
 
+use ListCompare\Domain\SourceType;
 use ListCompare\Infrastructure\TemplateSystem\Renderer;
 
 class Router {
@@ -43,7 +44,7 @@ class Router {
      */
     private function showHome(): void
     {
-        echo $this->renderer->render('layout.html.twig');
+        echo $this->renderer->render('layout.html.twig', ['SourceType' => array_column(SourceType::cases(), 'value', 'name')]);
     }
 
     /**

@@ -25,7 +25,7 @@ class Renderer
     }
 
     /**
-     * @param string $path
+     * @param string $name
      * @param array $vars
      * @return string
      */

@@ -12,6 +12,8 @@ class ListComparator
     public function compare(array $listA, array $listB): ComparisonResult
     {
         return new ComparisonResult(
+            $listA,
+            $listB,
             $this->getOnlyA($listA, $listB),
             $this->getOnlyB($listA, $listB),
             $this->getIntersection($listA, $listB),

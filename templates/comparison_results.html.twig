@@ -1,0 +1,90 @@
+<div id="comparison-app" class="animate-fade-in space-y-8">
+    {# Fejléc és navigáció #}
+    <div class="flex justify-between items-center border-b pb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Elemzés kész</h2>
+        <button onclick="window.location.reload();" 
+            class="text-sm px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded transition"
+        >
+            ↻ Új összehasonlítás
+        </button>
+    </div>
+
+    {# 1. Statisztikai kártyák (Különbség nélkül) #}
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded-xl border shadow-sm">
+            <span class="text-xs text-gray-400 uppercase font-bold tracking-wider">Metszet (Közös)</span>
+            <div class="text-3xl font-black text-blue-600">{{ result.intersectCount }}</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border shadow-sm">
+            <span class="text-xs text-gray-400 uppercase font-bold tracking-wider">Unió (Összes egyedi)</span>
+            <div class="text-3xl font-black text-gray-800">{{ result.unionCount }}</div>
+        </div>
+        <div class="bg-white p-4 rounded-xl border shadow-sm">
+            <span class="text-xs text-gray-400 uppercase font-bold tracking-wider">Összesített elemszám</span>
+            <div class="text-3xl font-black text-gray-400">{{ result.countA + result.countB }}</div>
+        </div>
+    </div>
+
+    {# 2. Fő eredmények - Nyitott szekciók #}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        {# Csak A kártya #}
+        {{ _self.result_card('Csak az "A" listában', result.onlyA, 'red', 'list-a-only') }}
+        
+        {# Csak B kártya #}
+        {{ _self.result_card('Csak a "B" listában', result.onlyB, 'green', 'list-b-only') }}
+        
+        {# Közös elemek kártya #}
+        {{ _self.result_card('Közös elemek', result.intersection, 'blue', 'list-common') }}
+        
+        {# Unió kártya #}
+        {{ _self.result_card('Unió (Minden elem)', result.union, 'gray', 'list-union') }}
+
+    </div>
+
+    {# 3. Referencia listák - Alapból csukva #}
+    <div class="border-t pt-6 space-y-3">
+        <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-widest">Eredeti adatok</h3>
+        <details class="group border rounded-lg bg-gray-50">
+            <summary class="p-3 cursor-pointer text-sm text-gray-600 font-medium select-none">Eredeti "A" lista megtekintése</summary>
+            <div class="p-4 bg-white border-t text-xs font-mono text-gray-500 max-h-40 overflow-y-auto">
+                {{ result.sourceA|join('\n')|nl2br }}
+            </div>
+        </details>
+        <details class="group border rounded-lg bg-gray-50">
+            <summary class="p-3 cursor-pointer text-sm text-gray-600 font-medium select-none">Eredeti "B" lista megtekintése</summary>
+            <div class="p-4 bg-white border-t text-xs font-mono text-gray-500 max-h-40 overflow-y-auto">
+                {{ result.sourceB|join('\n')|nl2br }}
+            </div>
+        </details>
+    </div>
+</div>
+
+{# --- Makró a kártyákhoz az ismétlés elkerülésére --- #}
+{% macro result_card(title, items, color, id) %}
+    <div class="bg-white border rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+        <div class="px-4 py-3 bg-gray-50 border-b flex justify-between items-center">
+            <h3 class="font-bold text-gray-700">{{ title }} ({{ items|length }})</h3>
+            <button onclick="copyToClipboard('{{ id }}')" 
+                    class="p-1.5 hover:bg-gray-200 rounded text-gray-500 transition shadow-sm"
+                    title="Másolás vágólapra">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+            </button>
+        </div>
+        <div class="p-0 flex-grow">
+            <textarea id="{{ id }}" class="w-full h-48 p-3 text-sm font-mono border-none focus:ring-0 resize-none bg-white" readonly>{% for item in items %}{{ item }}{{ not loop.last ? "\n" : "" }}{% endfor %}</textarea>
+        </div>
+    </div>
+{% endmacro %}
+
+{# --- JavaScript a másoláshoz --- #}
+<script>
+function copyToClipboard(elementId) {
+    const text = document.getElementById(elementId).value;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Lista a vágólapra másolva!');
+    });
+}
+</script>

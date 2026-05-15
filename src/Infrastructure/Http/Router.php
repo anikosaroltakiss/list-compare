@@ -2,6 +2,7 @@
 
 namespace ListCompare\Infrastructure\Http;
 
+use Exception;
 use ListCompare\Domain\ListComparator;
 use ListCompare\Domain\SourceType;
 use ListCompare\Infrastructure\Provider\ListProviderFactory;
@@ -63,15 +64,29 @@ class Router
             return;
         }
 
-        $providers = new ListProviderFactory()->create($sourceType, $_POST, $_FILES);
+        try {
 
-        $providerA = $providers['A'];
-        $providerB = $providers['B'];
+            $providers = new ListProviderFactory()->create($sourceType, $_POST, $_FILES);
 
-        $comparisonResult = new ListComparator()->compare(
-            $providerA->getItems(),
-            $providerB->getItems()
-        );
+            $providerA = $providers['A'];
+            $providerB = $providers['B'];
+
+            $comparisonResult = new ListComparator()->compare(
+                $providerA->getItems(),
+                $providerB->getItems()
+            );
+
+            echo $this->renderer->render('comparison_results.html.twig', [
+                'result' => $comparisonResult
+            ]);
+            exit;
+        } catch (Exception $e) {
+            header("HX-Retarget: #error-message");
+            echo "Hiba történt a feldolgozás során: " . $e->getMessage();
+            exit;
+        }
+
+
 
         //var_dump($comparisonResult);
     }

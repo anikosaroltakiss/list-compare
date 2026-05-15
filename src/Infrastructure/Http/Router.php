@@ -65,7 +65,6 @@ class Router
         }
 
         try {
-
             $providers = new ListProviderFactory()->create($sourceType, $_POST, $_FILES);
 
             $providerA = $providers['A'];
@@ -85,10 +84,6 @@ class Router
             echo "Hiba történt a feldolgozás során: " . $e->getMessage();
             exit;
         }
-
-
-
-        //var_dump($comparisonResult);
     }
 
     /**

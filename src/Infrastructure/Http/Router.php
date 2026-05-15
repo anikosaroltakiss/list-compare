@@ -2,10 +2,13 @@
 
 namespace ListCompare\Infrastructure\Http;
 
+use ListCompare\Domain\ListComparator;
 use ListCompare\Domain\SourceType;
+use ListCompare\Infrastructure\Provider\ListProviderFactory;
 use ListCompare\Infrastructure\TemplateSystem\Renderer;
 
-class Router {
+class Router
+{
     private Renderer $renderer;
 
     /**
@@ -52,7 +55,25 @@ class Router {
      */
     private function handleComparison(): void
     {
+        $sourceType = SourceType::tryFrom($_POST['type']);
 
+        if (!$sourceType) {
+            header("HX-Retarget: #error-message");
+            print "Érvénytelen forrásválasztás! Kérlek, próbáld újra.";
+            return;
+        }
+
+        $providers = new ListProviderFactory()->create($sourceType, $_POST, $_FILES);
+
+        $providerA = $providers['A'];
+        $providerB = $providers['B'];
+
+        $comparisonResult = new ListComparator()->compare(
+            $providerA->getItems(),
+            $providerB->getItems()
+        );
+
+        //var_dump($comparisonResult);
     }
 
     /**

@@ -11,13 +11,16 @@ class ListComparator
      */
     public function compare(array $listA, array $listB): ComparisonResult
     {
+        $cleanA = array_unique($listA);
+        $cleanB = array_unique($listB);
+
         return new ComparisonResult(
             $listA,
             $listB,
-            $this->getOnlyA($listA, $listB),
-            $this->getOnlyB($listA, $listB),
-            $this->getIntersection($listA, $listB),
-            $this->getUnion($listA, $listB)
+            $this->getOnlyA($cleanA, $cleanB),
+            $this->getOnlyB($cleanA, $cleanB),
+            $this->getIntersection($cleanA, $cleanB),
+            $this->getUnion($cleanA, $cleanB)
         );
     }
 
